@@ -1,0 +1,62 @@
+Emergency Response Simulation - OOP Report
+Applied OOP Concepts
+Abstraction:
+EmergencyUnit is an abstract class that defines a generic emergency unit without specifying details. Concrete classes (Police, Firefighter, Ambulance) inherit and implement specific behaviors.
+
+Inheritance:
+Police, Firefighter, and Ambulance inherit from the EmergencyUnit base class, reusing and specializing the common structure.
+
+Polymorphism:
+The RespondToIncident and CanHandle methods are overridden by each emergency unit to define unit-specific responses. The simulation uses polymorphic calls without knowing the exact type.
+
+Encapsulation:
+Classes such as Incident, EmergencyUnit, and its subclasses keep their data (Name, Speed, Type, etc.) bundled together, exposing only necessary methods and properties.
+
+Class Structure (Text Diagram)
+csharp
+Copy
+Edit
+[EmergencyUnit] (abstract)
+ +-- Properties:
+ ¦    - Name: string
+ ¦    - Speed: int
+ +-- Methods:
+ ¦    - CanHandle(incidentType): bool (abstract)
+ ¦    - RespondToIncident(incident, responseTime): void (abstract)
+ ¦
+ +-- [Police] : EmergencyUnit
+ ¦    - Overrides CanHandle and RespondToIncident
+ ¦
+ +-- [Firefighter] : EmergencyUnit
+ ¦    - Overrides CanHandle and RespondToIncident
+ ¦
+ +-- [Ambulance] : EmergencyUnit
+      - Overrides CanHandle and RespondToIncident
+
+[Incident]
+ +-- Properties:
+ ¦    - Type: string
+ ¦    - Location: string
+ ¦    - Difficulty: int
+
+[Simulation]
+ +-- Methods:
+ ¦    - Main(args)
+ ¦    - GetIncidentFromUser()
+ ¦    - FindAvailableUnits(incidentType)
+ ¦    - ManualUnitSelection(availableUnits)
+Lessons Learned and Challenges Faced
+Choosing Abstractions:
+It was important to design the EmergencyUnit class to be abstract, forcing specialized units to define their own behaviors, which made the system flexible for future expansions (e.g., adding "Rescue Dogs" or "Coast Guards").
+
+Handling Dynamic Input:
+Letting users either pick an incident from a list or type manually added realism but required careful input validation to avoid crashes.
+
+Unit Removal Logic:
+After responding, units are removed from availability. A challenge was ensuring that the list stayed consistent and no unit could respond twice without complicating the logic.
+
+Randomization:
+Random difficulty and response time introduced variability, simulating real-world unpredictability in emergency situations.
+
+Polymorphism is Powerful:
+Calling RespondToIncident without knowing the exact type of unit made the main simulation loop clean and simple — a perfect use of polymorphism
